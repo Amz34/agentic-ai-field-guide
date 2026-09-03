@@ -1,0 +1,38 @@
+<figure class="diag">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 252" role="img" aria-label="Orchestration topology diagram">
+<defs>
+<marker id="arrB" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" fill="#0E7A46"/></marker>
+</defs>
+<g font-family="Lato,Arial,sans-serif">
+<rect x="18" y="26" width="150" height="62" rx="10" fill="#FFFFFF" stroke="#0E7A46" stroke-width="1.5"/>
+<text x="93" y="51" text-anchor="middle" font-size="17" font-weight="700" fill="#17392F">Request</text>
+<text x="93" y="71" text-anchor="middle" font-size="12.5" fill="#5A6F63">chat · webhook · inbox</text>
+<rect x="255" y="26" width="195" height="62" rx="12" fill="#0B3B2E"/>
+<text x="352" y="52" text-anchor="middle" font-size="18" font-weight="700" fill="#FFFFFF">Orchestrator</text>
+<text x="352" y="72" text-anchor="middle" font-size="12.5" fill="#CDE5D8">plans · delegates · verifies</text>
+<rect x="680" y="26" width="242" height="62" rx="10" fill="#FFFFFF" stroke="#0E7A46" stroke-width="1.5"/>
+<text x="801" y="51" text-anchor="middle" font-size="15.5" font-weight="700" fill="#17392F">Shared memory · vector store</text>
+<text x="801" y="71" text-anchor="middle" font-size="12.5" fill="#5A6F63">context, sources, results</text>
+<line x1="168" y1="57" x2="251" y2="57" stroke="#0E7A46" stroke-width="2" marker-end="url(#arrB)"/>
+<line x1="450" y1="57" x2="676" y2="57" stroke="#0E7A46" stroke-width="2" marker-end="url(#arrB)"/>
+<rect x="18" y="150" width="280" height="64" rx="10" fill="#FFFFFF" stroke="#0E7A46" stroke-width="1.5"/>
+<text x="158" y="176" text-anchor="middle" font-size="16" font-weight="700" fill="#17392F">Researcher / retriever</text>
+<text x="158" y="197" text-anchor="middle" font-size="12.5" fill="#5A6F63">gathers evidence · RAG search</text>
+<rect x="330" y="150" width="280" height="64" rx="10" fill="#FFFFFF" stroke="#0E7A46" stroke-width="1.5"/>
+<text x="470" y="176" text-anchor="middle" font-size="16" font-weight="700" fill="#17392F">Writer / analyst</text>
+<text x="470" y="197" text-anchor="middle" font-size="12.5" fill="#5A6F63">drafts the deliverable</text>
+<rect x="642" y="150" width="280" height="64" rx="10" fill="#FFFFFF" stroke="#0E7A46" stroke-width="1.5"/>
+<text x="782" y="176" text-anchor="middle" font-size="16" font-weight="700" fill="#17392F">Operator</text>
+<text x="782" y="197" text-anchor="middle" font-size="12.5" fill="#5A6F63">runs tools · APIs · actions</text>
+<line x1="352" y1="88" x2="158" y2="146" stroke="#0E7A46" stroke-width="1.8" marker-end="url(#arrB)"/>
+<line x1="352" y1="88" x2="470" y2="146" stroke="#0E7A46" stroke-width="1.8" marker-end="url(#arrB)"/>
+<line x1="352" y1="88" x2="782" y2="146" stroke="#0E7A46" stroke-width="1.8" marker-end="url(#arrB)"/>
+<line x1="169" y1="150" x2="169" y2="92" stroke="#7FA793" stroke-width="1.4" stroke-dasharray="5 4" marker-end="url(#arrB)"/>
+<line x1="481" y1="150" x2="481" y2="92" stroke="#7FA793" stroke-width="1.4" stroke-dasharray="5 4" marker-end="url(#arrB)"/>
+<line x1="793" y1="150" x2="793" y2="92" stroke="#7FA793" stroke-width="1.4" stroke-dasharray="5 4" marker-end="url(#arrB)"/>
+<rect x="330" y="224" width="280" height="24" rx="12" fill="#FFFFFF" stroke="#C9A227" stroke-width="1.3" stroke-dasharray="5 4"/>
+<text x="470" y="240" text-anchor="middle" font-size="12.5" fill="#7A5B12">human approval gate — high-impact actions</text>
+</g>
+</svg>
+<figcaption><b>Figure 2</b> — Orchestration in practice: a coordinator delegates specialised workers, verifies their output, and shares memory across the team.</figcaption>
+</figure>

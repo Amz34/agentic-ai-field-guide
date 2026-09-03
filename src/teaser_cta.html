@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Teaser CTA</title>
+<style>
+  :root{--pine:#0B3B2E;--brand:#0E7A46;--mint:#DDF3E4;--cream:#F5F9F6;--gold:#E8C468}
+  *{margin:0;padding:0;box-sizing:border-box}
+  @page{size:A4;margin:0}
+  html,body{width:210mm;height:297mm}
+  body{font-family:'Lato',sans-serif;background:var(--pine);color:var(--cream);display:flex;flex-direction:column}
+  .top{border-bottom:4px solid var(--brand);padding:14mm 16mm;display:flex;justify-content:space-between;align-items:center}
+  .brand{font-size:13pt;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:#fff}
+  .brand span{color:var(--gold)}
+  .kicker{font-size:10pt;letter-spacing:.14em;text-transform:uppercase;color:#9fd4b4}
+  .main{flex:1;padding:20mm 16mm;display:flex;flex-direction:column;justify-content:center}
+  .pageind{font-size:11pt;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:8mm}
+  h1{font-size:30pt;line-height:1.15;font-weight:900;color:#fff;margin-bottom:8mm}
+  h1 em{color:var(--mint);font-style:normal}
+  .lead{font-size:13.5pt;line-height:1.6;color:#cfe8da;max-width:150mm;margin-bottom:12mm}
+  .lead b{color:#fff}
+  .gate{background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.18);border-radius:14px;padding:10mm 12mm;display:flex;align-items:center;gap:10mm;max-width:160mm}
+  .lock{width:24mm;height:24mm;min-width:24mm;border-radius:50%;background:var(--brand);display:flex;align-items:center;justify-content:center;font-size:20pt;color:#fff}
+  .gate h2{font-size:15pt;font-weight:900;color:#fff;margin-bottom:2.5mm}
+  .gate p{font-size:11.5pt;color:#b5d9c6;line-height:1.5}
+  .gate .url{display:inline-block;margin-top:3.5mm;font-size:13pt;font-weight:900;color:var(--gold);letter-spacing:.04em;border-bottom:2px solid var(--gold);padding-bottom:1mm}
+  .bottom{border-top:1px solid rgba(255,255,255,.14);padding:6mm 16mm;display:flex;justify-content:space-between;font-size:9pt;color:#8fb8a4;letter-spacing:.08em;text-transform:uppercase}
+</style>
+</head>
+<body>
+  <div class="top">
+    <div class="brand">AZ Engineering<span> · Field Guide 2026</span></div>
+    <div class="kicker">Executive Edition</div>
+  </div>
+  <div class="main">
+    <div class="pageind">Page 3 of 24</div>
+    <h1>You are reading<br>the <em>opening pages</em>.</h1>
+    <div class="lead">
+      The full field guide walks through all <b>three adoption roadblocks</b>, the
+      <b>open-platform blueprint</b>, a <b>reference architecture</b> your team can
+      study end-to-end, and a <b>5-question readiness check</b> you can score
+      yourself on in under five minutes.
+    </div>
+    <div class="gate">
+      <div class="lock">PDF</div>
+      <div>
+        <h2>Unlock the complete 24-page edition</h2>
+        <p>Free download — enter your email to get the full guide plus the checklist.</p>
+        <span class="url">az-ebook.pages.dev</span>
+      </div>
+    </div>
+  </div>
+  <div class="bottom"><div>AZ Engineering</div><div>Built on open standards</div></div>
+</body>
+</html>

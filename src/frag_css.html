@@ -1,0 +1,25 @@
+<style>
+/* === AZ personalization + diagrams === */
+.pgfoot{display:none}
+figure.diag{margin:20px 0 22px;border:1px solid #9DC8B2;border-radius:14px;background:#FFFFFF;padding:16px 14px 10px;page-break-inside:avoid;break-inside:avoid}
+figure.diag svg{display:block;width:100%;height:auto}
+figure.diag figcaption{font-size:12.5px;line-height:1.5;color:#4D6255;text-align:center;margin:10px 8px 4px;letter-spacing:.01em}
+figure.diag figcaption b{color:#0B3B2E;font-weight:800;letter-spacing:.02em}
+.lp3{display:flex;gap:12px;margin:18px 0 20px}
+.lp3>div{flex:1;border:1px solid #BFE0CC;border-radius:12px;padding:12px 13px 11px;background:#F4FAF6;page-break-inside:avoid;break-inside:avoid}
+.lp3 b{display:block;color:#0B3B2E;font-size:13.5px;line-height:1.35;margin-bottom:6px}
+.lp3 p{margin:0;font-size:12px;line-height:1.5;color:#4D6255}
+.lp-links{margin:18px 0 0;border:1.5px solid #0E7A46;border-radius:14px;padding:16px 18px 14px;background:#F4FAF6;page-break-inside:avoid;break-inside:avoid}
+.lp-links h4{margin:0 0 4px;font-size:13.5px;letter-spacing:.16em;text-transform:uppercase;color:#0B3B2E}
+.lp-row{display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding:8px 0;border-bottom:1px solid #D7E8DD}
+.lp-row:last-child{border-bottom:0}
+.lp-row span{font-weight:700;color:#17392F;font-size:13px;white-space:nowrap}
+.lp-row a{color:#0E7A46;text-decoration:none;font-weight:600;font-size:12px;word-break:break-all}
+.lp-note{margin:16px 0 0;font-size:12px;line-height:1.55;color:#4D6255;background:#DDF3E4;border-radius:10px;padding:10px 14px}
+.lp-sig{margin:18px 0 0;font-size:14px;font-weight:700;color:#0B3B2E;text-align:right}
+@media print{
+.pgfoot{display:block;position:fixed;bottom:4mm;left:0;right:0;text-align:center;font-size:7.5pt;letter-spacing:.16em;text-transform:uppercase;color:#5A6F63;background:transparent;z-index:999}
+.lp3,.lp-links{break-inside:avoid}
+figure.diag{break-inside:avoid}
+}
+</style>

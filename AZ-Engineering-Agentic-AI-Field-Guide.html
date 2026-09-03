@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The AZ Engineering Guide to Agentic AI — Field Guide</title>
+<style>
+  /* ============================================================
+     AZ ENGINEERING — AGENTIC AI FIELD GUIDE
+     Brand palette: deep pine / engineering green / mint
+     Layout mirrors classic Red Hat executive e-book structure.
+     Self-contained: WordPress-ready (paste into a Custom HTML
+     block or use as a page template). No external assets.
+     ============================================================ */
+  :root{
+    --pine:#06291c;          /* cover / deep bands */
+    --pine2:#0b3d29;
+    --green:#0e7a46;         /* primary brand green */
+    --green2:#176b3f;
+    --emerald:#1f9e63;
+    --leaf:#63e6a2;          /* bright accent on dark */
+    --mint:#e9f5ee;          /* soft box background */
+    --mint2:#d8ecdf;
+    --line:#cfe3d6;
+    --ink:#12241b;           /* body text */
+    --mut:#4d6255;           /* muted text */
+    --paper:#ffffff;
+    --sans:"Lato","Inter","Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;
+    --mono:"JetBrains Mono","Fira Code",Consolas,"Liberation Mono","DejaVu Sans Mono",monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  body{
+    font-family:var(--sans);
+    color:var(--ink);
+    background:#f4f7f5;
+    font-size:18px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet{
+    max-width:960px;
+    margin:0 auto;
+    background:var(--paper);
+    box-shadow:0 2px 24px rgba(6,41,28,.08);
+  }
+  .page{
+    padding:56px 64px 48px;
+    page-break-after:always;
+  }
+  .page:last-child{page-break-after:auto;}
+  .page-cover{padding:0;background:linear-gradient(158deg,var(--pine) 0%,var(--pine2) 58%,#0d4c31 100%);color:#fff;overflow:hidden;}
+
+  /* ---------- type ---------- */
+  h1,h2,h3,h4{line-height:1.16;font-weight:900;letter-spacing:-.01em;}
+  p{margin:0 0 1.05em;}
+  a{color:var(--green);text-decoration:none;}
+  strong{color:inherit;font-weight:700;}
+  em{font-style:italic;}
+  .lead{font-size:1.22em;line-height:1.55;color:var(--pine2);font-weight:400;}
+  .muted{color:var(--mut);}
+  .small{font-size:.82em;color:var(--mut);line-height:1.5;}
+
+  .kicker{
+    display:inline-flex;align-items:center;gap:10px;
+    text-transform:uppercase;font-weight:900;letter-spacing:.16em;
+    font-size:.72em;color:var(--green);
+    margin:0 0 14px;
+  }
+  .kicker::before{content:"";width:26px;height:4px;background:var(--green);border-radius:2px;}
+  .kicker.on-dark{color:var(--leaf);}
+  .kicker.on-dark::before{background:var(--leaf);}
+
+  h1.ch{font-size:2.5em;margin:0 0 6px;}
+  h2{font-size:1.55em;margin:0 0 14px;color:var(--pine2);}
+  h3{font-size:1.22em;margin:0 0 10px;color:var(--green2);}
+  h4{font-size:1.02em;margin:0 0 8px;}
+  .ch-sub{font-size:1.06em;color:var(--mut);max-width:58ch;margin-bottom:26px;}
+
+  /* ---------- cover ---------- */
+  .cover-inner{
+    min-height:247mm;display:flex;flex-direction:column;
+    padding:22mm 22mm 16mm;position:relative;
+  }
+  .cover-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:44mm;}
+  .brand{display:flex;align-items:center;gap:14px;}
+  .mark{
+    width:58px;height:58px;border-radius:14px;background:var(--leaf);
+    display:flex;align-items:center;justify-content:center;
+    font-weight:900;font-size:26px;color:var(--pine);letter-spacing:-.02em;
+  }
+  .brand-name{font-weight:900;font-size:1.15em;letter-spacing:.02em;line-height:1.1;}
+  .brand-sub{font-size:.72em;letter-spacing:.22em;text-transform:uppercase;color:var(--leaf);font-weight:700;}
+  .cover-kicker{
+    text-transform:uppercase;letter-spacing:.3em;font-size:.74em;font-weight:700;
+    color:var(--leaf);margin-bottom:20px;
+  }
+  .cover-title{
+    font-size:3.55em;line-height:1.04;font-weight:900;letter-spacing:-.015em;
+    max-width:14ch;margin-bottom:22px;
+  }
+  .cover-title .accent{color:var(--leaf);}
+  .cover-sub{
+    font-size:1.28em;line-height:1.5;color:#d8efe2;max-width:34ch;font-weight:300;
+  }
+  .cover-spacer{flex:1;}
+  .cover-meta{
+    display:flex;gap:34px;flex-wrap:wrap;
+    border-top:1px solid rgba(255,255,255,.18);padding-top:18px;
+  }
+  .cover-meta div b{display:block;font-size:.7em;text-transform:uppercase;letter-spacing:.14em;color:var(--leaf);margin-bottom:3px;font-weight:800;}
+  .cover-meta div span{color:#eaf5ef;font-size:.95em;}
+  .cover-leaf{position:absolute;right:-130px;bottom:-150px;width:520px;height:520px;border-radius:50%;
+    background:radial-gradient(circle at 30% 30%, rgba(99,230,162,.20), rgba(99,230,162,0) 62%);}
+  .cover-leaf2{position:absolute;right:-60px;bottom:-70px;width:300px;height:300px;border-radius:50%;
+    border:1.5px solid rgba(99,230,162,.22);}
+
+  /* ---------- contents ---------- */
+  .toc{list-style:none;margin-top:10px;}
+  .toc li{
+    display:flex;align-items:baseline;gap:18px;
+    padding:13px 2px;border-bottom:1px solid var(--line);font-size:1.06em;
+  }
+  .toc .pg{margin-left:auto;font-weight:900;color:var(--green);font-size:.92em;letter-spacing:.02em;}
+  .toc li:last-child{border-bottom:none;}
+  .toc .n{font-weight:900;color:var(--green);min-width:2.2ch;font-size:1.05em;}
+  .toc .t{font-weight:700;}
+  .toc .d{display:block;font-weight:400;color:var(--mut);font-size:.85em;margin-top:1px;}
+  .toc-group{margin-top:26px;padding-top:14px;border-top:2px solid var(--pine2);}
+  .toc-group-label{font-size:.72em;text-transform:uppercase;letter-spacing:.18em;font-weight:900;color:var(--pine2);margin-bottom:4px;}
+
+  /* ---------- components ---------- */
+  .stat-band{
+    background:linear-gradient(120deg,var(--pine),var(--pine2) 70%);
+    color:#fff;border-radius:18px;padding:34px 38px;margin:26px 0;
+    display:flex;align-items:center;gap:34px;flex-wrap:wrap;
+  }
+  .stat-band .num{font-size:4.6em;font-weight:900;color:var(--leaf);line-height:1;letter-spacing:-.02em;}
+  .stat-band .txt{flex:1;min-width:250px;font-size:1.12em;line-height:1.5;color:#e9f6ee;}
+  .stat-band .txt b{color:var(--leaf);}
+
+  .bene-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:8px 0 6px;}
+  .bene{border:1px solid var(--line);border-top:5px solid var(--green);border-radius:10px;padding:18px 16px;background:#fbfdfc;}
+  .bene h4{color:var(--pine2);font-size:1em;}
+  .bene p{font-size:.88em;color:var(--mut);line-height:1.5;margin:0;}
+
+  .cols3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin:20px 0;}
+  .card{border:1px solid var(--line);border-radius:12px;padding:22px 20px;background:#fff;}
+  .card h4{color:var(--pine2);font-size:1.04em;margin-bottom:8px;}
+  .card p{font-size:.9em;color:var(--mut);line-height:1.55;margin:0;}
+  .card .ico{width:42px;height:42px;border-radius:10px;background:var(--mint);display:flex;align-items:center;justify-content:center;margin-bottom:14px;font-size:20px;color:var(--green);font-weight:900;}
+  .card.lead-card{border-top:5px solid var(--green);}
+
+  .callout{border-left:6px solid var(--green);background:var(--mint);border-radius:0 12px 12px 0;padding:18px 22px;margin:20px 0;}
+  .callout .ttl{font-weight:900;color:var(--green2);text-transform:uppercase;letter-spacing:.08em;font-size:.72em;margin-bottom:6px;}
+  .callout p{margin:0;font-size:.95em;}
+  .callout.dark{background:var(--pine);border-left-color:var(--leaf);}
+  .callout.dark .ttl{color:var(--leaf);}
+  .callout.dark p{color:#dcefe3;}
+
+  .underhood{
+    background:#0f2a1f;border-radius:14px;padding:20px 22px;margin:20px 0;color:#cfe6d8;
+  }
+  .underhood .ttl{display:flex;align-items:center;gap:8px;font-weight:900;color:var(--leaf);
+    text-transform:uppercase;letter-spacing:.1em;font-size:.72em;margin-bottom:10px;}
+  .underhood pre{font-family:var(--mono);font-size:.8em;line-height:1.55;white-space:pre-wrap;margin:0;color:#a7d9bd;}
+  .underhood p{font-size:.92em;line-height:1.6;color:#d6ecdf;margin:0 0 8px;}
+  .underhood p:last-child{margin-bottom:0;}
+
+  .divider{border:none;border-top:1px solid var(--line);margin:30px 0;}
+  .ch-label-num{font-size:1.02em;font-weight:900;color:var(--leaf);}
+
+  /* chapter opener */
+  .chapter-head{border-bottom:3px solid var(--green);padding-bottom:18px;margin-bottom:24px;}
+  .chapter-head .no{font-size:.8em;font-weight:900;letter-spacing:.24em;color:var(--green);text-transform:uppercase;margin-bottom:6px;}
+  .chapter-head h1{font-size:2.2em;color:var(--pine2);}
+  .chapter-head p{color:var(--mut);font-size:1.05em;max-width:60ch;margin:10px 0 0;}
+
+  .challenge{margin:0 0 34px;}
+  .challenge h2{display:flex;align-items:baseline;gap:14px;font-size:1.42em;color:var(--pine2);}
+  .challenge h2 .cno{color:var(--green);font-weight:900;font-size:.9em;}
+  .ans-tag{display:inline-block;background:var(--mint2);color:var(--green2);font-weight:900;font-size:.72em;text-transform:uppercase;letter-spacing:.12em;padding:5px 12px;border-radius:999px;margin:4px 0 12px;}
+
+  /* checklists & questions */
+  .q-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:22px 0;}
+  .q-item{border:1px solid var(--line);border-radius:14px;padding:20px;background:var(--mint);}
+  .q-item .qn{font-size:1.5em;font-weight:900;color:var(--green);float:right;margin-left:10px;}
+  .q-item h4{font-size:1.02em;color:var(--pine2);}
+  .q-item p{font-size:.88em;color:var(--mut);margin:0;line-height:1.5;}
+  .checklist{list-style:none;margin:20px 0;}
+  .checklist li{
+    display:flex;gap:16px;align-items:flex-start;
+    padding:14px 4px;border-bottom:1px solid var(--line);font-size:1em;
+  }
+  .checklist li:last-child{border-bottom:none;}
+  .check{flex:none;width:26px;height:26px;border:2.5px solid var(--green);border-radius:7px;margin-top:2px;}
+  .checklist .item-ttl{font-weight:700;}
+  .checklist .item-d{display:block;color:var(--mut);font-size:.86em;line-height:1.5;}
+
+  .strat-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:22px 0;}
+  .strat{border-radius:14px;padding:24px;background:#fff;border:1px solid var(--line);}
+  .strat h4{color:var(--green2);font-size:1.08em;}
+  .strat p{font-size:.9em;color:var(--mut);line-height:1.55;margin:0;}
+  .strat .ico{width:40px;height:40px;border-radius:10px;background:var(--mint);color:var(--green);font-weight:900;display:flex;align-items:center;justify-content:center;font-size:19px;margin-bottom:12px;}
+
+  /* architecture diagram */
+  .arch{display:flex;flex-direction:column;gap:0;margin:26px 0;}
+  .arch-band{border:2px solid var(--green);border-radius:14px;padding:18px 20px;background:#fff;position:relative;}
+  .arch-band .band-label{position:absolute;top:-12px;left:18px;background:var(--green);color:#fff;font-weight:900;font-size:.66em;text-transform:uppercase;letter-spacing:.12em;padding:3px 12px;border-radius:999px;}
+  .arch-band h4{color:var(--pine2);margin-bottom:10px;font-size:1.05em;}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;}
+  .chip{border:1px solid var(--line);background:var(--mint);border-radius:8px;padding:6px 12px;font-size:.84em;font-weight:700;color:var(--pine2);}
+  .chip.strong{background:var(--pine);border-color:var(--pine);color:#eaf6ee;}
+  .chip.accent{background:#fff;border:1.5px solid var(--green);color:var(--green2);}
+  .arch-arrow{display:flex;align-items:center;justify-content:center;color:var(--green);font-weight:900;font-size:1.3em;padding:2px 0;letter-spacing:4px;}
+  .arch-side{margin-top:16px;border-left:4px solid var(--leaf);background:#0f2a1f;border-radius:0 12px 12px 0;padding:16px 20px;}
+  .arch-side h4{color:var(--leaf);margin-bottom:8px;font-size:.95em;text-transform:uppercase;letter-spacing:.1em;}
+  .arch-side .chips .chip{border-color:#1d4634;background:#143a29;color:#cfe6d8;}
+
+  /* tables */
+  table.stack{width:100%;border-collapse:collapse;margin:20px 0;font-size:.88em;}
+  table.stack th{background:var(--pine);color:#fff;text-align:left;padding:10px 14px;font-weight:800;font-size:.82em;text-transform:uppercase;letter-spacing:.06em;}
+  table.stack td{border-bottom:1px solid var(--line);padding:10px 14px;vertical-align:top;line-height:1.5;color:var(--ink);}
+  table.stack tr:nth-child(even) td{background:#fafdfb;}
+  table.stack td:first-child{font-weight:700;color:var(--green2);white-space:nowrap;}
+
+  .num-big{font-size:2.6em;font-weight:900;color:var(--green);line-height:1;}
+  .footnote-block{margin-top:34px;border-top:1px solid var(--line);padding-top:16px;}
+  .footnote-block p{font-size:.76em;color:var(--mut);line-height:1.5;margin:0 0 6px;}
+  .footnote-block ol{margin:0 0 0 18px;font-size:.76em;color:var(--mut);line-height:1.55;}
+
+  .cta{background:linear-gradient(140deg,var(--pine),var(--pine2));border-radius:20px;padding:44px 46px;color:#fff;margin:30px 0;}
+  .cta h2{color:#fff;font-size:1.9em;margin-bottom:12px;}
+  .cta p{color:#d8efe2;font-size:1.05em;max-width:54ch;}
+  .cta .mail{display:inline-block;margin-top:16px;background:var(--leaf);color:var(--pine);font-weight:900;font-size:1em;padding:13px 26px;border-radius:10px;}
+  .cta .note{margin-top:14px;font-size:.8em;color:#9cc7ad;}
+
+  .gloss{list-style:none;margin:14px 0;}
+  .gloss li{padding:11px 0;border-bottom:1px solid var(--line);display:flex;gap:16px;font-size:.95em;}
+  .gloss .term{font-weight:900;color:var(--green2);min-width:150px;font-size:.9em;}
+  .gloss .def{color:var(--ink);line-height:1.5;}
+
+  /* page header/footer elements for print */
+  .runhead{display:none;}
+
+  /* ---------- responsive ---------- */
+  @media(max-width:760px){
+    .page{padding:32px 24px;}
+    .bene-grid,.cols3{grid-template-columns:1fr 1fr;}
+    .q-grid,.strat-grid{grid-template-columns:1fr;}
+    .cover-inner{padding:34px 26px;min-height:auto;}
+    .cover-top{margin-bottom:70px;}
+    .cover-title{font-size:2.7em;}
+    .stat-band .num{font-size:3.2em;}
+    table.stack td:first-child{white-space:normal;}
+  }
+  @media(max-width:480px){
+    .bene-grid,.cols3{grid-template-columns:1fr;}
+    .cover-title{font-size:2.1em;}
+    .cover-sub{font-size:1.05em;}
+  }
+
+  /* ---------- print ---------- */
+  @page{size:A4;margin:15mm 14mm 16mm;}
+  @media print{
+    body{background:#fff;font-size:12.5pt;}
+    .sheet{max-width:none;box-shadow:none;}
+    .page{padding:0;page-break-after:auto;}
+  .page.brk{page-break-before:always;}
+  .card,.statband,.bene,.strat,.q-item,.callout,.checklist li,.cta,.tbl-wrap,tr{page-break-inside:avoid;}
+  h1,h2,h3,h4,.kicker,figure,blockquote{page-break-after:avoid;}
+    .page:last-child{page-break-after:auto;}
+    .page-cover{padding:0;}
+    .cover-inner{padding:16mm 18mm 14mm;}
+    .cover-top{margin-bottom:52mm;}
+    .cover-title{font-size:40pt;}
+    .cover-sub{font-size:13.5pt;}
+    .lead{font-size:12.5pt;}
+    h1.ch{font-size:22pt;}
+    h2{font-size:15.5pt;}
+    h3{font-size:12.5pt;}
+    .chapter-head h1{font-size:21pt;}
+    .card p,.bene p,.strat p,.q-item p{font-size:11.5pt;}
+    .underhood pre{font-size:9.5pt;}
+    .small{font-size:10.5pt;}
+    .stat-band .num{font-size:38pt;}
+    .stat-band .txt{font-size:12.5pt;}
+    .checklist li{font-size:12pt;}
+    .gloss .def,.gloss li{font-size:11pt;}
+    .callout p{font-size:11.5pt;}
+    table.stack{font-size:10.5pt;}
+    .footnote-block p,.footnote-block ol{font-size:9.5pt;}
+    .cta h2{font-size:20pt;}
+    .cta p{font-size:12pt;}
+    .q-grid,.strat-grid{gap:12px;}
+    .card,.q-item,.strat,.bene{break-inside:avoid;}
+    .callout,.underhood,.stat-band,.cta,table.stack{break-inside:avoid;}
+    .arch-band{break-inside:avoid;}
+    a{color:inherit;}
+    .toc li{font-size:12.5pt;}
+  }
+</style>
+<style>
+<!-- frag personalization CSS -->
+/* === AZ personalization + diagrams === */
+.pgfoot{display:none}
+figure.diag{margin:20px 0 22px;border:1px solid #9DC8B2;border-radius:14px;background:#FFFFFF;padding:16px 14px 10px;page-break-inside:avoid;break-inside:avoid}
+figure.diag svg{display:block;width:100%;height:auto}
+figure.diag figcaption{font-size:12.5px;line-height:1.5;color:#4D6255;text-align:center;margin:10px 8px 4px;letter-spacing:.01em}
+figure.diag figcaption b{color:#0B3B2E;font-weight:800;letter-spacing:.02em}
+.lp3{display:flex;gap:12px;margin:18px 0 20px}
+.lp3>div{flex:1;border:1px solid #9DC8B2;border-radius:12px;padding:12px 13px 11px;background:#FFFFFF;page-break-inside:avoid;break-inside:avoid}
+.lp3 b{display:block;color:#0B3B2E;font-size:13.5px;line-height:1.35;margin-bottom:6px}
+.lp3 p{margin:0;font-size:12px;line-height:1.5;color:#4D6255}
+.lp-links{margin:18px 0 0;border:1.5px solid #0E7A46;border-radius:14px;padding:16px 18px 14px;background:#FFFFFF;page-break-inside:avoid;break-inside:avoid}
+.lp-links h4{margin:0 0 4px;font-size:13.5px;letter-spacing:.16em;text-transform:uppercase;color:#0B3B2E}
+.lp-row{display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding:8px 0;border-bottom:1px solid #D7E8DD}
+.lp-row:last-child{border-bottom:0}
+.lp-row span{font-weight:700;color:#17392F;font-size:13px;white-space:nowrap}
+.lp-row a{color:#0E7A46;text-decoration:none;font-weight:600;font-size:12px;word-break:break-all}
+.lp-note{margin:16px 0 0;font-size:12px;line-height:1.55;color:#4D6255;background:#FFFFFF;border:1px solid #9DC8B2;border-radius:10px;padding:10px 14px}
+.lp-sig{margin:18px 0 0;font-size:14px;font-weight:700;color:#0B3B2E;text-align:right}
+@media print{
+.pgfoot{display:block;position:fixed;bottom:4mm;left:0;right:0;text-align:center;font-size:7.5pt;letter-spacing:.16em;text-transform:uppercase;color:#5A6F63;background:transparent;z-index:999}
+.lp3,.lp-links{break-inside:avoid}
+figure.diag{break-inside:avoid}
+}
+</style>
+
+
+
+</head>
+<body>
+<div class="sheet">
+<div class="pgfoot">Aamir Zameer &nbsp;·&nbsp; AZ Engineering &nbsp;·&nbsp; Field Guide 2026</div>
+<div class="pgfoot">Aamir Zameer &nbsp;·&nbsp; AZ Engineering &nbsp;·&nbsp; Field Guide 2026</div>
+
+<!-- ================= COVER ================= -->
+<section class="page page-cover">
+  <div class="cover-inner">
+    <div class="cover-leaf"></div><div class="cover-leaf2"></div>
+    <div class="cover-top">
+      <div class="brand">
+        <div class="mark">AZ</div>
+        <div>
+          <div class="brand-name">AZ ENGINEERING</div>
+          <div class="brand-sub">AI Systems &amp; Automation</div>
+        </div>
+      </div>
+      <div style="text-align:right;font-size:.8em;color:#9cc7ad;letter-spacing:.06em;">
+        Field Guide · Edition 2026
+      </div>
+    </div>
+
+    <div class="cover-kicker">An executive field guide</div>
+    <h1 class="cover-title">The agentic AI <span class="accent">advantage</span></h1>
+    <p class="cover-sub">How intelligent agents are designed, governed, and run in production — and what they can do for your business.</p>
+    <div class="cover-spacer"></div>
+    <div class="cover-meta">
+  <div><b>Author</b><span>Aamir Zameer — AZ Engineering</span></div>
+  <div><b>Author</b><span>Aamir Zameer — AZ Engineering</span></div>
+      <div><b>Written for</b><span>Executives and engineers</span></div>
+      <div><b>Based on</b><span>Live production systems</span></div>
+      <div><b>Focus</b><span>Practical, vendor-neutral, open source</span></div>
+    </div>
+  </div>
+</section>
+<!-- ================= CONTENTS ================= -->
+<section class="page brk">
+  <div class="kicker">AZ Engineering · Field Guide 2026</div>
+  <h1 class="ch">Contents</h1>
+  <p class="ch-sub">A practical walk from the agentic opportunity to a production-ready strategy. Each chapter serves two readers: the executive who needs the decision and the engineer who needs the design.</p>
+
+  <ul class="toc">
+    <li><span class="n">I</span><span class="t">Introduction — The agentic AI opportunity<span class="d">What changed, how agentic systems work, and why the timing is now</span></span><span class="pg">03</span></li>
+    <li><span class="n">1</span><span class="t">The real challenge<span class="d">Orchestration, trust, and scale — and how a production practice answers each one</span></span><span class="pg">06</span></li>
+    <li><span class="n">2</span><span class="t">An open platform approach that works<span class="d">Simplified assembly, governed deployment, cost-efficient scale — without vendor lock-in</span></span><span class="pg">11</span></li>
+    <li><span class="n">3</span><span class="t">Charting your agentic AI strategy<span class="d">Where to start, readiness questions, strategic considerations, and a field checklist</span></span><span class="pg">18</span></li>
+    <li><span class="n">A</span><span class="t">Reference architecture<span class="d">The layers of a production agent system, with the component map</span></span><span class="pg">16</span></li>
+    <li><span class="n">B</span><span class="t">Glossary &amp; sources<span class="d">Plain-language terms and the research behind the numbers</span></span><span class="pg">24</span></li>
+  </ul>
+
+  <div class="toc-group">
+    <div class="toc-group-label">How to read this guide</div>
+    <p class="small" style="margin-top:8px;">
+      <strong style="color:var(--green2);">Executives</strong> — read the Introduction, the opening of each chapter, and Chapter 3's checklist. 
+      <strong style="color:var(--green2);">Engineers</strong> — the same pages carry <em>"Under the hood"</em> notes and the reference architecture in Appendix A. 
+      Every pattern described here is one AZ Engineering runs in daily production — not a slide-deck vision. Sensitive details are intentionally omitted.
+    </p>
+  </div>
+
+
+<!-- ================= INTRODUCTION (p1) ================= -->
+<section class="page brk">
+  <div class="kicker">Introduction</div>
+  <h1 class="ch">The agentic AI opportunity</h1>
+  <p class="lead">For three decades, software answered when we asked. Agentic AI is the shift to software that <strong>plans, acts, and finishes</strong> — with your guardrails, your data, and your approval where it counts.</p>
+
+  <p>Generative AI changed how we <em>create</em>: text, images, analysis, drafts. Agentic AI changes what software can <em>do</em>. Instead of responding to a single prompt, an intelligent agent receives an objective, breaks it into steps, calls your systems and APIs, checks its own work, and reports a finished result — often across hours or days, not seconds.</p>
+
+  <p>This is not a laboratory idea. The building blocks — capable open-weights language models, low-cost inference, standard APIs, mature automation tooling — are ordinary infrastructure today. What separates organisations that benefit from those that experiment is not access to models. It is <strong>engineering discipline</strong>: orchestration, governance, and cost control around the model.</p>
+
+  <div class="callout">
+    <div class="ttl">In plain terms</div>
+    <p>Think of generative AI as a brilliant assistant who answers questions brilliantly. Agentic AI is that assistant <em>with a job description</em>: you hand over an outcome — "qualify every incoming lead overnight", "watch the servers and fix what you safely can" — and it works the task like a reliable employee, escalating anything risky to you.</p>
+  </div>
+
+  <h2>How agentic AI works</h2>
+  <p>An agent is useful only when it can <em>touch your world</em>. A model alone cannot read your inbox, query your database, or restart a service. A production agent system therefore has four cooperating parts:</p>
+
+  <div class="cols3">
+    <div class="card lead-card">
+      <div class="ico">1</div>
+      <h4>A reasoning model</h4>
+      <p>The language model that plans steps and decides. It can run on your hardware (open-weights models) or via an API — often both, routed by sensitivity.</p>
+    </div>
+    <div class="card">
+      <div class="ico">2</div>
+      <h4>Tools &amp; APIs</h4>
+      <p>Standard interfaces to your systems: CRM, documents, databases, messaging channels, infrastructure. The model calls them the same way your apps do.</p>
+    </div>
+    <div class="card">
+      <div class="ico">3</div>
+      <h4>Memory &amp; context</h4>
+      <p>Short-term task state plus long-term knowledge — including retrieval over your own documents (RAG) so answers are grounded in your facts, not guesses.</p>
+    </div>
+    <div class="card">
+      <div class="ico">4</div>
+      <h4>Orchestration</h4>
+      <p>The workflow layer that sequences steps, retries failures, enforces guardrails, and hands results to humans at decision points.</p>
+    </div>
+  </div>
+
+  <p class="small" style="margin-top:6px;">One structural point matters: in the architecture above, <strong>every layer is replaceable</strong>. Change the model, the tools, or the orchestrator without rebuilding the rest. That is the open-platform principle this guide returns to in Chapter 2.</p>
+<figure class="diag">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 258" role="img" aria-label="The agentic loop diagram">
+<defs>
+<marker id="arrA" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" fill="#0E7A46"/></marker>
+</defs>
+<g font-family="Lato,Arial,sans-serif">
+<rect x="18" y="16" width="150" height="58" rx="10" fill="#FFFFFF" stroke="#0E7A46" stroke-width="1.5"/>
+<text x="93" y="41" text-anchor="middle" font-size="17" font-weight="700" fill="#17392F">1 · Objective</text>
+<text x="93" y="60" text-anchor="middle" font-size="13" fill="#5A6F63">task or trigger assigned</text>
+<rect x="207" y="16" width="150" height="58" rx="10" fill="#FFFFFF" stroke="#0E7A46" stroke-width="1.5"/>
+<text x="282" y="41" text-anchor="middle" font-size="17" font-weight="700" fill="#17392F">2 · Plan</text>
+<text x="282" y="60" text-anchor="middle" font-size="13" fill="#5A6F63">break into concrete steps</text>
+<rect x="396" y="16" width="150" height="58" rx="10" fill="#FFFFFF" stroke="#0E7A46" stroke-width="1.5"/>
+<text x="471" y="41" text-anchor="middle" font-size="17" font-weight="700" fill="#17392F">3 · Act</text>
+<text x="471" y="60" text-anchor="middle" font-size="13" fill="#5A6F63">tools · data · APIs</text>
+<rect x="585" y="16" width="150" height="58" rx="10" fill="#FFFFFF" stroke="#0E7A46" stroke-width="1.5"/>
+<text x="660" y="41" text-anchor="middle" font-size="17" font-weight="700" fill="#17392F">4 · Verify</text>
+<text x="660" y="60" text-anchor="middle" font-size="13" fill="#5A6F63">check result against intent</text>
+<rect x="774" y="16" width="150" height="58" rx="10" fill="#0B3B2E" stroke="#0B3B2E" stroke-width="1.5"/>
+<text x="849" y="41" text-anchor="middle" font-size="16" font-weight="700" fill="#FFFFFF">5 · Hand off</text>
+<text x="849" y="60" text-anchor="middle" font-size="13" fill="#CDE5D8">deliver · log · escalate</text>
+<line x1="168" y1="45" x2="203" y2="45" stroke="#0E7A46" stroke-width="2" marker-end="url(#arrA)"/>
+<line x1="357" y1="45" x2="392" y2="45" stroke="#0E7A46" stroke-width="2" marker-end="url(#arrA)"/>
+<line x1="546" y1="45" x2="581" y2="45" stroke="#0E7A46" stroke-width="2" marker-end="url(#arrA)"/>
+<line x1="735" y1="45" x2="770" y2="45" stroke="#0E7A46" stroke-width="2" marker-end="url(#arrA)"/>
+<path d="M660,74 V104 H282 V80" fill="none" stroke="#0E7A46" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#arrA)"/>
+<text x="471" y="120" text-anchor="middle" font-size="13.5" font-style="italic" fill="#17392F">unexpected result — revise the plan</text>
+<rect x="18" y="140" width="906" height="64" rx="12" fill="#FFFFFF" stroke="#0E7A46" stroke-width="1"/>
+<text x="40" y="166" font-size="16" font-weight="700" fill="#0B3B2E">Guardrails on every loop</text>
+<text x="40" y="190" font-size="14.5" fill="#17392F">approval gates for high-impact actions · data policy · spend budgets · full audit trail</text>
+</g>
+</svg>
+<figcaption><b>Figure 1</b> — The agentic loop: plan, act, verify, hand off — with guardrails around every cycle.</figcaption>
+</figure>
+
+
+
+<!-- ================= INTRODUCTION (p2) ================= -->
+<section class="page">
+  <div class="stat-band">
+    <div class="num">80%</div>
+    <div class="txt">By 2029, agentic AI is projected to autonomously resolve <b>80% of common customer-service issues</b> without human intervention — leading to a <b>30% reduction in operational costs</b>.<sup style="color:var(--leaf);">1</sup></div>
+  </div>
+
+  <h2>The benefits, observed in production</h2>
+  <p>Marketing lists promise benefits; operations deliver them. These four are the ones we see repeat across live deployments, and each is measurable in weeks, not years:</p>
+
+  <div class="bene-grid">
+    <div class="bene"><h4>Operational efficiency</h4><p>Autonomous workflows absorb the repetitive load — triage, qualification, monitoring — so people work on exceptions, not volume.</p></div>
+    <div class="bene"><h4>Lower cost of work</h4><p>Routine tasks that consumed staff hours run at fractions of a cent per transaction when inference is sized correctly (Chapter 2).</p></div>
+    <div class="bene"><h4>Faster decisions</h4><p>Agents watch, summarise, and recommend around the clock, so decisions follow events — not the next working day.</p></div>
+    <div class="bene"><h4>Defensible differentiation</h4><p>Teams that orchestrate and govern agents well compound an advantage competitors cannot buy off the shelf.</p></div>
+  </div>
+
+  <div class="callout dark">
+    <div class="ttl">The adoption challenge — honest framing</div>
+    <p>Industry analysts project AI-enabled workflows growing from roughly 3% of workflows in 2024 toward 25% by 2026.<sup style="color:var(--leaf);">2</sup> The bottleneck is never the model. It is <strong>orchestration</strong> (many moving parts cooperating), <strong>trust</strong> (proving the agent is reliable and governed), and <strong>scale</strong> (cost and infrastructure that stay sane). Chapter 1 addresses each — and shows how an engineering practice answers them.</p>
+  </div>
+
+  <hr class="divider">
+  <h3>How an engineering practice reads this</h3>
+  <div class="underhood">
+    <div class="ttl">Under the hood — for engineers</div>
+    <p>Three engineering facts shape every design decision in this guide:</p>
+    <pre>1. Models are interchangeable commodities. The durable asset is the
+   tool layer, the data contracts, and the evaluation loop around them.
+2. Agents are software. Use version control, code review, staging,
+   and rollback — an agent pipeline is a distributed system, not magic.
+3. Cost scales with context, not intelligence. Token discipline and
+   retrieval beat "bigger model" on both budget and latency.</pre>
+  </div>
+
+
+<!-- ================= CHAPTER 1 ================= -->
+<section class="page brk">
+  <div class="chapter-head">
+    <div class="no">Chapter 1</div>
+    <h1>The real challenge</h1>
+    <p>Enterprise knowledge of AI is maturing fast, and with maturity comes a harder question: not "can we build an agent?" but "can we run it safely, affordably, and at useful scale?" Three challenges decide the answer.</p>
+<figure class="diag">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 252" role="img" aria-label="Orchestration topology diagram">
+<defs>
+<marker id="arrB" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" fill="#0E7A46"/></marker>
+</defs>
+<g font-family="Lato,Arial,sans-serif">
+<rect x="18" y="26" width="150" height="62" rx="10" fill="#FFFFFF" stroke="#0E7A46" stroke-width="1.5"/>
+<text x="93" y="51" text-anchor="middle" font-size="17" font-weight="700" fill="#17392F">Request</text>
+<text x="93" y="71" text-anchor="middle" font-size="12.5" fill="#5A6F63">chat · webhook · inbox</text>
+<rect x="255" y="26" width="195" height="62" rx="12" fill="#0B3B2E"/>
+<text x="352" y="52" text-anchor="middle" font-size="18" font-weight="700" fill="#FFFFFF">Orchestrator</text>
+<text x="352" y="72" text-anchor="middle" font-size="12.5" fill="#CDE5D8">plans · delegates · verifies</text>
+<rect x="680" y="26" width="242" height="62" rx="10" fill="#FFFFFF" stroke="#0E7A46" stroke-width="1.5"/>
+<text x="801" y="51" text-anchor="middle" font-size="15.5" font-weight="700" fill="#17392F">Shared memory · vector store</text>
+<text x="801" y="71" text-anchor="middle" font-size="12.5" fill="#5A6F63">context, sources, results</text>
+<line x1="168" y1="57" x2="251" y2="57" stroke="#0E7A46" stroke-width="2" marker-end="url(#arrB)"/>
+<line x1="450" y1="57" x2="676" y2="57" stroke="#0E7A46" stroke-width="2" marker-end="url(#arrB)"/>
+<rect x="18" y="150" width="280" height="64" rx="10" fill="#FFFFFF" stroke="#0E7A46" stroke-width="1.5"/>
+<text x="158" y="176" text-anchor="middle" font-size="16" font-weight="700" fill="#17392F">Researcher / retriever</text>
+<text x="158" y="197" text-anchor="middle" font-size="12.5" fill="#5A6F63">gathers evidence · RAG search</text>
+<rect x="330" y="150" width="280" height="64" rx="10" fill="#FFFFFF" stroke="#0E7A46" stroke-width="1.5"/>
+<text x="470" y="176" text-anchor="middle" font-size="16" font-weight="700" fill="#17392F">Writer / analyst</text>
+<text x="470" y="197" text-anchor="middle" font-size="12.5" fill="#5A6F63">drafts the deliverable</text>
+<rect x="642" y="150" width="280" height="64" rx="10" fill="#FFFFFF" stroke="#0E7A46" stroke-width="1.5"/>
+<text x="782" y="176" text-anchor="middle" font-size="16" font-weight="700" fill="#17392F">Operator</text>
+<text x="782" y="197" text-anchor="middle" font-size="12.5" fill="#5A6F63">runs tools · APIs · actions</text>
+<line x1="352" y1="88" x2="158" y2="146" stroke="#0E7A46" stroke-width="1.8" marker-end="url(#arrB)"/>
+<line x1="352" y1="88" x2="470" y2="146" stroke="#0E7A46" stroke-width="1.8" marker-end="url(#arrB)"/>
+<line x1="352" y1="88" x2="782" y2="146" stroke="#0E7A46" stroke-width="1.8" marker-end="url(#arrB)"/>
+<line x1="169" y1="150" x2="169" y2="92" stroke="#7FA793" stroke-width="1.4" stroke-dasharray="5 4" marker-end="url(#arrB)"/>
+<line x1="481" y1="150" x2="481" y2="92" stroke="#7FA793" stroke-width="1.4" stroke-dasharray="5 4" marker-end="url(#arrB)"/>
+<line x1="793" y1="150" x2="793" y2="92" stroke="#7FA793" stroke-width="1.4" stroke-dasharray="5 4" marker-end="url(#arrB)"/>
+<rect x="330" y="224" width="280" height="24" rx="12" fill="#FFFFFF" stroke="#C9A227" stroke-width="1.3" stroke-dasharray="5 4"/>
+<text x="470" y="240" text-anchor="middle" font-size="12.5" fill="#7A5B12">human approval gate — high-impact actions</text>
+</g>
+</svg>
+<figcaption><b>Figure 2</b> — Orchestration in practice: a coordinator delegates specialised workers, verifies their output, and shares memory across the team.</figcaption>
+</figure>
+
+  </div>
+
+  <div class="challenge">
+    <h2><span class="cno">1</span>Orchestrating complex agent workflows</h2>
+    <p class="ch-sub">An agent is not a single-point solution. It sits on top of models, tools, APIs, data sources, and other agents — and something must coordinate all of it. In practice, orchestration failures show up as agents that start well and drift: forgotten context, dead-end loops, silent partial work.</p>
+
+    <span class="ans-tag">How AZ Engineering answers it</span>
+    <p>We treat an agent workflow as a <strong>production pipeline with roles</strong>, the same way a factory line has stations. Work moves through specialised stages — intake, research, synthesis, verification, delivery — and each stage is a small, testable service. A coordinator hands work forward, a verifier checks output before it ships, and every run is replayable.</p>
+    <p>Two layers keep orchestration honest: <strong>event-driven triggers</strong> (a new lead, a full disk, a scheduled hour) start work without human babysitting, and <strong>tool exposure via MCP servers</strong> gives every agent one consistent, permissioned way to reach the same service APIs — no bespoke integrations per agent.</p>
+
+    <div class="callout">
+      <div class="ttl">In plain terms</div>
+      <p>A single agent doing everything is like one employee doing sales, accounts, and IT. It fails. Our pipelines are teams: each member specialised, a supervisor coordinating, quality control before anything leaves the building.</p>
+    </div>
+    <div class="underhood">
+      <div class="ttl">Under the hood — for engineers</div>
+      <p>A representative AZ pipeline (research → summarise → evaluate → deliver) uses:</p>
+      <pre>- Stateless stage services behind HTTP APIs; runs are idempotent
+  and resumable, so retries never double-post.
+- A verifier/evaluator stage with structured checks before delivery.
+- Compressed, lossy-safe context handoffs between stages (cheap
+  token budgets per hop instead of one unbounded context window).
+- Two trigger paths: cron/scheduler for time-based work and
+  webhooks/event polls for reactive work; no polling glue code.
+- Human-in-the-loop only at commit points, never mid-pipeline.</pre>
+    </div>
+  </div>
+
+
+<!-- CHAPTER 1 cont -->
+<section class="page">
+  <h1 style="font-size:1.6em;">The real challenge</h1>
+    <p>The three challenges are independent — you can fail at scale even with perfect orchestration, and trust failures undo both.</p>
+  </div>
+
+  <div class="challenge">
+    <h2><span class="cno">2</span>Maintaining trust and reliable behaviour</h2>
+    <p class="ch-sub">A model that answers confidently but wrongly is a liability; an agent that acts on that confidence is worse. Trust has three parts: accuracy you can verify, actions you can control, and data you can protect. All three are engineering problems, not wishlist items.</p>
+
+    <span class="ans-tag">How AZ Engineering answers it</span>
+    <p><strong>Verification before completion.</strong> Nothing an agent produces is "done" until a check has confirmed it — a verifier stage, a schema validation, or a human review, depending on the stakes. Irreversible or costly actions (payments, external posts, deletions) sit behind an <strong>approval gate</strong>: the agent prepares everything, a human presses the button.</p>
+    <p><strong>Data protection by routing, not by policy document.</strong> A PII gate inspects every request: anything sensitive or private is handled exclusively by local models on our own hardware — it never leaves the building. Only clearly non-sensitive work reaches cloud APIs. This is architecture, so it holds even when people forget the policy.</p>
+    <p><strong>Isolation as governance.</strong> Each client and each business function runs in its own gateway and workspace — natural boundaries for permissions, audit logs, and blast radius. Observability watchdogs watch the watchers: health checks, log anomaly alerts, and structured audit trails that trace any decision back to the model, data, and prompt that produced it.</p>
+
+    <div class="callout">
+      <div class="ttl">In plain terms</div>
+      <p>The rule we run by: <strong>the agent proposes, the business disposes.</strong> Anything cheap and reversible — drafts, triage, monitoring — the agent does alone. Anything expensive or irreversible waits for your approval. And your private data never travels to a third party, because the sensitive work happens on hardware you control.</p>
+    </div>
+    <div class="underhood">
+      <div class="ttl">Under the hood — for engineers</div>
+      <pre>- Hybrid inference gate: PII/private payloads → local open-weights
+  models (quantized 3B–8B on CPU/GPU); non-sensitive → cost-optimal
+  cloud API. Routing rules live in code, tested in CI.
+- Approval gates: agent stages a payload + human-readable summary;
+  execution of the side-effecting call is gated on explicit approval.
+- Per-tenant gateway isolation with per-client credentials, memory,
+  and model routing — RBAC without a central IAM project.
+- Watchdogs: healthchecks + log scanners that alert an ops channel,
+  escalate on repeated failure, and never self-approve.
+- Audit trail: every decision logged with model id, source data refs,
+  and prompt lineage for explainability.</pre>
+    </div>
+  </div>
+
+
+<!-- CHAPTER 1 cont2 -->
+<section class="page">
+  <h1 style="font-size:1.6em;">The real challenge</h1>
+  </div>
+
+  <div class="challenge">
+    <h2><span class="cno">3</span>Scaling agentic AI efficiently</h2>
+    <p class="ch-sub">"Scale" in agentic AI is usually misread as "bigger GPU budget". In practice the cost curve is dominated by three quieter numbers: how much context every task carries, how often you call an expensive model for a cheap job, and how much idle infrastructure you keep for peak load.</p>
+
+    <span class="ans-tag">How AZ Engineering answers it</span>
+    <p><strong>Route by sensitivity and difficulty.</strong> A hybrid router sends each task to the cheapest adequate engine: private data to local models (zero marginal cost, zero egress), routine work to compact local or low-cost API models, and genuinely hard reasoning — rarely — to a frontier model. Most production queries never need the most expensive option.</p>
+<figure class="diag">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 240" role="img" aria-label="Hybrid routing diagram">
+<defs>
+<marker id="arrC" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" fill="#0E7A46"/></marker>
+</defs>
+<g font-family="Lato,Arial,sans-serif">
+<rect x="18" y="20" width="165" height="52" rx="10" fill="#FFFFFF" stroke="#0E7A46" stroke-width="1.5"/>
+<text x="100" y="42" text-anchor="middle" font-size="16.5" font-weight="700" fill="#17392F">Every request</text>
+<text x="100" y="60" text-anchor="middle" font-size="12.5" fill="#5A6F63">from your users</text>
+<rect x="420" y="20" width="230" height="52" rx="26" fill="#0B3B2E"/>
+<text x="535" y="41" text-anchor="middle" font-size="18" font-weight="700" fill="#FFFFFF">Classifier</text>
+<text x="535" y="59" text-anchor="middle" font-size="12.5" fill="#CDE5D8">sensitivity · difficulty</text>
+<line x1="183" y1="46" x2="416" y2="46" stroke="#0E7A46" stroke-width="2" marker-end="url(#arrC)"/>
+<rect x="18" y="118" width="280" height="58" rx="10" fill="#0B3B2E"/>
+<text x="158" y="143" text-anchor="middle" font-size="17" font-weight="700" fill="#FFFFFF">Local engine</text>
+<text x="158" y="163" text-anchor="middle" font-size="13" fill="#CDE5D8">private · sensitive · PII</text>
+<rect x="330" y="118" width="280" height="58" rx="10" fill="#0E7A46"/>
+<text x="470" y="143" text-anchor="middle" font-size="16.5" font-weight="700" fill="#FFFFFF">Open model — routine</text>
+<text x="470" y="163" text-anchor="middle" font-size="13" fill="#E2F3E9">fast · lowest cost</text>
+<rect x="642" y="118" width="280" height="58" rx="10" fill="#FFFFFF" stroke="#0E7A46" stroke-width="1.5"/>
+<text x="782" y="143" text-anchor="middle" font-size="16.5" font-weight="700" fill="#17392F">Frontier — hardest</text>
+<text x="782" y="163" text-anchor="middle" font-size="13" fill="#5A6F63">deep reasoning · last resort</text>
+<line x1="535" y1="72" x2="158" y2="114" stroke="#0E7A46" stroke-width="1.8" marker-end="url(#arrC)"/>
+<line x1="535" y1="72" x2="470" y2="114" stroke="#0E7A46" stroke-width="1.8" marker-end="url(#arrC)"/>
+<line x1="535" y1="72" x2="782" y2="114" stroke="#0E7A46" stroke-width="1.8" marker-end="url(#arrC)"/>
+<rect x="18" y="196" width="904" height="30" rx="15" fill="#FFFFFF" stroke="#0E7A46" stroke-width="1"/>
+<text x="470" y="215" text-anchor="middle" font-size="14.5" fill="#17392F">Policy: sensitive data never leaves your perimeter · every action logged · spend capped per request</text>
+</g>
+</svg>
+<figcaption><b>Figure 3</b> — Hybrid routing: classify each request by sensitivity and difficulty, then send it to the cheapest tier that can handle it safely.</figcaption>
+</figure>
+
+    <p><strong>Token discipline.</strong> Context compression and retrieval mean the model sees the relevant 2,000 tokens, not the entire 200,000-token archive. This is the single largest cost lever we control, and it also speeds every answer.</p>
+    <p><strong>Infrastructure that matches the load.</strong> Stateless stage services scale horizontally on standard cloud VMs — no specialised AI hardware required for most workloads. Quantized open-weights models run inference on commodity hardware. Monitoring and cost reports run on a cadence, so budget drift is caught in days, not quarters.</p>
+
+    <div class="callout">
+      <div class="ttl">In plain terms</div>
+      <p>You do not buy a truck to deliver a letter. We size the vehicle to the parcel: postcard jobs cost postage, only freight jobs get the truck. The result is agent systems that run around the clock on ordinary servers, with a cost curve your finance team can predict.</p>
+    </div>
+    <div class="underhood">
+      <div class="ttl">Under the hood — for engineers</div>
+      <pre>- Hybrid router tiers: local quantized (private), cheap API (routine),
+  frontier API (hard reasoning, gated by policy + budget caps).
+- Quantized GGUF models (3B/7B class) keep sensitive inference on
+  single-VM capacity; no GPU fleet required for common workloads.
+- Context compression between pipeline stages and vector retrieval
+  (RAG) bound per-task tokens; measured, not assumed.
+- Stateless containers + reverse proxy = horizontal scale and rolling
+  deploys on any cloud or on-prem host.
+- Scheduled cost/usage reports and alert thresholds; infra watchdogs
+  (disk, uptime, health) with auto-remediation for safe cases only.</pre>
+    </div>
+  </div>
+
+  <hr class="divider">
+  <div class="callout" style="margin-top:6px;">
+    <div class="ttl">Why this matters to your business</div>
+    <p>These three challenges are why so many agent pilots stall between demo and deployment. An organisation that answers orchestration, trust, and scale with <em>engineering process</em> — not heroic effort — is the one whose agents survive contact with real customers and real budgets.</p>
+  </div>
+
+
+<!-- ================= CHAPTER 2 ================= -->
+<section class="page brk">
+  <div class="chapter-head">
+    <div class="no">Chapter 2</div>
+    <h1>An open platform approach that works</h1>
+    <p>Getting value from agentic workflows depends on trustworthy infrastructure, operational visibility, secure deployment, and freedom across environments. The most reliable way to get all four is the same way the internet itself was built: <strong>open, modular, standard interfaces</strong> — not a single vendor's stack.</p>
+  </div>
+
+  <p class="lead">AZ Engineering builds on an open platform: open-weights models, standard APIs, and interchangeable components. Nothing in the stack can hold your data or your roadmap hostage. If a better model, cheaper inference, or stricter compliance requirement appears, one layer swaps — the system keeps running.</p>
+
+  <div class="callout">
+    <div class="ttl">In plain terms</div>
+    <p>Open platform means no lock-in, in any direction: no proprietary model you cannot replace, no closed format that owns your data, no consultant whose departure strands the project. Every layer of the stack has a standard interface — like electrical sockets — so any compliant device plugs in.</p>
+  </div>
+
+  <h2>Simplified assembly of agent workflows</h2>
+  <p>Successful agent systems depend on planning, memory, tool orchestration, and feedback loops working together. Our practice reduces that assembly cost with three commitments:</p>
+
+  <div class="cols3">
+    <div class="card lead-card">
+      <div class="ico">⌁</div>
+      <h4>A unified API experience</h4>
+      <p>Every capability — models, retrieval, memory, tools, services — speaks the same consistent language (standard HTTP APIs, OpenAI-compatible where relevant, MCP for agent-tool access). Swapping a model provider is a configuration change, not a rewrite.</p>
+    </div>
+    <div class="card">
+      <div class="ico">◇</div>
+      <h4>Dedicated AI experiences</h4>
+      <p>Purpose-built assistant services — lead qualification, data analysis, research pipelines, alerting — give operators one focused surface per job instead of a general chatbot bolted onto everything. Each has its own guardrails and metrics.</p>
+    </div>
+    <div class="card">
+      <div class="ico">⬡</div>
+      <h4>Ecosystem compatibility</h4>
+      <p>Native support for open-weights models (Ollama and compatible runtimes), retrieval engines (vector databases such as ChromaDB), and mainstream automation tooling — so the right tool is chosen per job, with no integration tax.</p>
+    </div>
+  </div>
+
+  <p class="small">The design rule behind all three: <strong>interoperability is a feature, not an accident.</strong> When a component exposes a standard interface, the whole system gains options — and options are what keep costs and risks low over time.</p>
+
+
+<!-- CHAPTER 2 cont -->
+<section class="page">
+  <div class="chapter-head">
+    <div class="no">Chapter 2 · continued</div>
+    <h1 style="font-size:1.6em;">Governed deployment, by design</h1>
+    <p>As agent autonomy increases, governance, observability, and explainability stop being compliance chores and become the features that make autonomy <em>possible</em>. A governed agent is one you can let work alone.</p>
+  </div>
+
+  <div class="cols3">
+    <div class="card lead-card">
+      <div class="ico">→</div>
+      <h4>Context-aware execution</h4>
+      <p>Agents access the semantically relevant slice of your data — via retrieval and memory — rather than raw firehoses. Model Context Protocol (MCP) standardises how agents reach tools and data, improving control and explainability over every decision.</p>
+    </div>
+    <div class="card">
+      <div class="ico">◉</div>
+      <h4>Integrated observability &amp; policy</h4>
+      <p>Health checks, structured logs, and watchdog alerts keep every agent visible. Role-based boundaries and approval gates keep behaviour inside intent. Any decision can be traced to its source model and data.</p>
+    </div>
+    <div class="card">
+      <div class="ico">▣</div>
+      <h4>Interoperable with your policies</h4>
+      <p>Per-client isolation, data-residency routing, and standard audit trails let agent activity sit inside your existing security posture — including regulated environments — instead of beside it.</p>
+    </div>
+  </div>
+
+  <div class="arch-side">
+    <h4>Guardrail layer (runs across every workload)</h4>
+    <div class="chips">
+      <span class="chip">PII gate — sensitive data stays local</span>
+      <span class="chip">Approval gates on irreversible actions</span>
+      <span class="chip">Verification before completion</span>
+      <span class="chip">Per-client isolation &amp; credentials</span>
+      <span class="chip">Health checks + watchdog alerts</span>
+      <span class="chip">Audit trail with model &amp; data lineage</span>
+    </div>
+  </div>
+
+  <h2 style="margin-top:26px;">Autonomy with a hand on the switch</h2>
+  <p>We stage autonomy deliberately. A new workflow starts fully supervised: the agent drafts, humans execute. As evidence accumulates — accuracy on real cases, error rates, edge cases handled — the workflow earns more autonomy, one action class at a time. This is governance that scales with trust, and it is why our clients approve expansions instead of fearing them.</p>
+
+  <div class="underhood">
+    <div class="ttl">Under the hood — for engineers</div>
+    <pre>- MCP servers expose memory, docs, and service APIs to any agent
+  framework; tool calls are logged and rate-limited per tenant.
+- Autonomy levels per action class: propose → approve → auto (with
+  rollback). Promotion requires measured accuracy over N real cases.
+- Structured outputs + schema validation at every agent boundary
+  (JSON contracts), so "the model said" is never the last word.
+- Watchdogs with escalation paths to an ops channel; auto-remediation
+  only for reversible, low-risk cases (restarts, disk cleanups).</pre>
+  </div>
+
+
+<!-- CHAPTER 2 cont2 -->
+<section class="page">
+  <div class="chapter-head">
+    <div class="no">Chapter 2 · continued</div>
+    <h1 style="font-size:1.6em;">Scalable and cost-efficient by construction</h1>
+    <p>Scaling agentic AI needs intelligent infrastructure, not just big models. The infrastructure must absorb fluctuating workloads, optimise the cost–performance trade-off, and keep its security posture — at any size.</p>
+  </div>
+
+  <div class="cols3">
+    <div class="card lead-card">
+      <div class="ico">▤</div>
+      <h4>Flexibility across environments</h4>
+      <p>Everything ships as containers: one VM, a small cluster, or your own hardware. Workloads move between environments — including fully on-premises for clients with residency requirements — without re-architecture.</p>
+    </div>
+    <div class="card">
+      <div class="ico">◔</div>
+      <h4>Optimised inference economics</h4>
+      <p>The hybrid router, quantized local models, retrieval-bound context, and compression cut both API spend and latency. Cost is balanced across local and cloud resources per task — never one-size-fits-all.</p>
+    </div>
+    <div class="card">
+      <div class="ico">⬢</div>
+      <h4>Security-focused operations</h4>
+      <p>Continuous updates, automated backups with tested recovery, uptime watchdogs, and least-privilege access are standard practice — the continuity assurances enterprises expect from mission-critical software.</p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <h3>The economics in one line</h3>
+  <p>Because most workloads are routine and most data is private, a typical AZ deployment runs <strong>primarily on local, quantized models on ordinary hardware</strong>, using paid APIs only for the small share of work that genuinely needs frontier reasoning. The result is a cost curve that scales with value delivered — not with tokens burned.</p>
+
+  <div class="stat-band" style="background:linear-gradient(120deg,var(--green2),var(--pine2));">
+    <div class="num">3B–8B</div>
+    <div class="txt">Compact quantized open-weights models handle the majority of daily production work on commodity hardware — with <b>zero per-query cost</b> and <b>zero data egress</b> for sensitive tasks.</div>
+  </div>
+
+  <div class="underhood">
+    <div class="ttl">Under the hood — for engineers</div>
+    <pre>- Routing policy (priority order): local private-capable model →
+  cheap cloud API → frontier API. Budget caps and alerts per tenant.
+- GGUF quantized models (Q4/Q5) cut memory ~4× vs full precision
+  with negligible quality loss on routine tasks.
+- Autoscaling-ready stateless services; no GPU dependency for the
+  common path — burst capacity is an option, not a requirement.
+- Context compression + RAG keep per-task token counts bounded;
+  cost telemetry per client per workflow, reported on a cadence.</pre>
+  </div>
+
+
+<!-- ================= APPENDIX A: ARCHITECTURE ================= -->
+<section class="page brk">
+  <div class="kicker">Appendix A</div>
+  <h1 class="ch">Reference architecture</h1>
+  <p class="ch-sub">The production shape of an AZ Engineering agent system. Read it top-down for the flow of work, and right-to-left for the guardrails that govern every layer.</p>
+
+  <div class="arch">
+    <div class="arch-band">
+      <span class="band-label">Layer 1 · Channels</span>
+      <h4>Where people and systems talk to agents</h4>
+      <div class="chips">
+        <span class="chip strong">WhatsApp</span><span class="chip strong">Telegram</span><span class="chip strong">Signal</span>
+        <span class="chip strong">SMS</span><span class="chip strong">Web / forms</span><span class="chip strong">Email</span>
+        <span class="chip strong">Slack / Teams-style ops chat</span>
+      </div>
+    </div>
+    <div class="arch-arrow">▼</div>
+    <div class="arch-band">
+      <span class="band-label">Layer 2 · Orchestration</span>
+      <h4>Who decides what runs, when, and in what order</h4>
+      <div class="chips">
+        <span class="chip">Multi-agent pipelines (role-based stages)</span>
+        <span class="chip">Schedulers / cron</span>
+        <span class="chip">Event &amp; webhook triggers</span>
+        <span class="chip">Workflow automation (e.g. n8n)</span>
+        <span class="chip">Agent delegation &amp; coordination</span>
+      </div>
+    </div>
+    <div class="arch-arrow">▼</div>
+    <div class="arch-band">
+      <span class="band-label">Layer 3 · Agent core</span>
+      <h4>The intelligence layer — replaceable by design</h4>
+      <div class="chips">
+        <span class="chip accent">LLM runtime: local (open-weights) ⇄ cloud API</span>
+        <span class="chip">Agents &amp; role definitions</span>
+        <span class="chip">MCP tool servers</span>
+        <span class="chip">Memory &amp; context</span>
+      </div>
+    </div>
+    <div class="arch-arrow">▼</div>
+    <div class="arch-band">
+      <span class="band-label">Layer 4 · Data &amp; services</span>
+      <h4>The systems agents act on</h4>
+      <div class="chips">
+        <span class="chip">Vector store / RAG knowledge base</span>
+        <span class="chip">Service APIs (lead qualification, analytics, …)</span>
+        <span class="chip">Databases &amp; documents</span>
+        <span class="chip">Business systems via standard APIs</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="arch-side">
+    <h4>Cross-cutting guardrails</h4>
+    <div class="chips">
+      <span class="chip">PII gate: private → local only</span>
+      <span class="chip">Approval gates</span>
+      <span class="chip">Verification stage</span>
+      <span class="chip">Observability &amp; watchdogs</span>
+      <span class="chip">Per-tenant isolation</span>
+      <span class="chip">Audit &amp; lineage</span>
+    </div>
+  </div>
+
+  <table class="stack">
+    <tr><th>Component</th><th>Role in the system</th><th>Why this choice</th></tr>
+    <tr><td>Open-weights runtimes (Ollama / compatible)</td><td>Serves local quantized models for private and routine work</td><td>Zero egress, zero per-query cost, full data control</td></tr>
+    <tr><td>Hybrid router</td><td>Sends each request to the cheapest adequate engine</td><td>Cost and latency follow the task, not a fixed tier</td></tr>
+    <tr><td>FastAPI service catalog</td><td>Stateless, schema-validated business services</td><td>Versioned, testable, horizontally scalable</td></tr>
+    <tr><td>MCP servers</td><td>Standard tool/data access for any agent</td><td>No per-agent bespoke integrations; logged, permissioned</td></tr>
+    <tr><td>Vector store (ChromaDB class)</td><td>Long-term knowledge + grounded retrieval</td><td>RAG answers with sources; multilingual-capable embeddings</td></tr>
+    <tr><td>Orchestration (pipelines + n8n class + cron)</td><td>Sequencing, retries, scheduling, event handling</td><td>Code-first and visual automation for mixed teams</td></tr>
+    <tr><td>Gateways per client/function</td><td>Isolated message + credential + memory boundaries</td><td>Tenant isolation = built-in RBAC and blast-radius control</td></tr>
+    <tr><td>Watchdogs &amp; healthchecks</td><td>Continuous monitoring with escalation</td><td>Catch drift before customers do</td></tr>
+    <tr><td>Containers + reverse proxy</td><td>Uniform packaging and delivery</td><td>Same system runs on any VM/cloud/on-prem</td></tr>
+  </table>
+  <p class="small">Every layer above is deployed today. Component names are shown as categories — specific products are selected per deployment and, by design, remain swappable.</p>
+
+
+<!-- ================= CHAPTER 3 ================= -->
+<section class="page brk">
+  <div class="chapter-head">
+    <div class="no">Chapter 3</div>
+    <h1>Charting your agentic AI strategy</h1>
+    <p>With the right foundation, agentic AI accelerates delivery and cuts costs. Transformation does not start with a platform-wide deployment — it starts with one high-value, well-contained workflow that earns its keep, then expands.</p>
+  </div>
+
+  <h2>Where to start</h2>
+  <p>These four patterns are the highest-return entry points we know — each is contained enough to pilot in weeks and general enough to fit most organisations. Three of the four are already running in production for AZ Engineering clients (described generically here):</p>
+
+  <div class="strat-grid">
+    <div class="strat"><div class="ico">1</div><h4>Customer-service triage &amp; lead qualification</h4><p>A 24/7 assistant that qualifies and routes every inquiry from your channels, answers routine questions with your own knowledge base, and hands warm, well-documented leads to your team — overnight work done by dawn. <span class="small" style="display:block;margin-top:6px;">Production-proven pattern.</span></p></div>
+    <div class="strat"><div class="ico">2</div><h4>Automated monitoring &amp; remediation</h4><p>Watchdogs over your infrastructure and business processes: check health, detect drift, alert the right channel, and auto-apply only the reversible fixes. Incident response shifts from reactive firefighting to supervised automation. <span class="small" style="display:block;margin-top:6px;">Production-proven pattern.</span></p></div>
+    <div class="strat"><div class="ico">3</div><h4>Recurring reporting &amp; digests</h4><p>Agents that gather, verify, cite, and deliver the weekly business digest — sales, operations, web, competitor moves — on schedule, in consistent format, replacing hours of manual assembly every cycle.</p></div>
+    <div class="strat"><div class="ico">4</div><h4>Internal knowledge assistant</h4><p>Retrieval over your documents and systems so staff ask questions in natural language and get sourced answers — including in Arabic and other languages — instead of hunting through folders. <span class="small" style="display:block;margin-top:6px;">Foundation installed; compounding returns.</span></p></div>
+  </div>
+
+  <div class="callout">
+    <div class="ttl">The pilot test</div>
+    <p>A good first pilot has three properties: it is <strong>frequent and painful</strong> (people feel it daily), <strong>bounded</strong> (wrong answers cost little), and <strong>measurable</strong> (time or money saved is obvious). If a candidate workflow lacks any of the three, pick a different one.</p>
+  </div>
+
+
+<!-- CHAPTER 3 readiness -->
+<section class="page">
+  <div class="chapter-head">
+    <div class="no">Chapter 3 · continued</div>
+    <h1 style="font-size:1.6em;">Assess your readiness</h1>
+    <p>To understand where your organisation stands, work through these questions with operations and IT together. They are ordered from business to technical, and each one maps to a concrete design decision.</p>
+  </div>
+
+  <div class="q-grid">
+    <div class="q-item"><span class="qn">1</span><h4>Where do repetitive or rules-based decisions slow down your teams?</h4><p>This finds the first workflow. Look for queues, night shifts, and copy-paste — the jobs nobody enjoys and everyone recognises.</p></div>
+    <div class="q-item"><span class="qn">2</span><h4>What systems, APIs, or data sources would agents need to access?</h4><p>Every agent is only as capable as the tools it can reach. List the systems, and note which already have APIs and which need a bridge.</p></div>
+    <div class="q-item"><span class="qn">3</span><h4>Can your infrastructure support governed, low-latency inference — or who will run it for you?</h4><p>Model workloads need compute, monitoring, and security. If building this in-house is not your core business, a managed practice is the pragmatic answer.</p></div>
+    <div class="q-item"><span class="qn">4</span><h4>What guardrails and approval policies must govern autonomous actions?</h4><p>Decide in advance which actions are free, which need approval, and which are forbidden. Autonomy without boundaries is how pilots become incidents.</p></div>
+    <div class="q-item"><span class="qn">5</span><h4>How will success be measured?</h4><p>Define the before/after now: time saved, cost per transaction, accuracy, error rates. What gets measured gets defended in the budget cycle.</p></div>
+    <div class="q-item"><span class="qn">6</span><h4>Which data may leave your premises — and which never will?</h4><p>A data-routing decision (local vs cloud inference) should be made before architecture, not after. When in doubt, keep it local — the capability exists at no cost premium today.</p></div>
+  </div>
+
+  <p class="small">These six questions are a starting point, not an exhaustive audit. Their purpose is alignment: when business, operations, and engineering answer them together, the pilot that follows survives contact with reality.</p>
+
+
+<!-- CHAPTER 3 strategy + checklist -->
+<section class="page">
+  
+  <h1 class="ch">Strategic considerations &amp; readiness checklist</h1>
+  <p class="ch-sub">Four principles shape a durable agentic strategy — and one checklist keeps the first deployment honest.</p>
+
+  <h2>Strategic considerations</h2>
+  <div class="strat-grid">
+    <div class="strat"><div class="ico">⇄</div><h4>Interoperability first</h4><p>Choose open, modular platforms that do not lock you to one model, one cloud, or one toolset. Flexibility is what lets you ride price and capability changes instead of being trapped by them.</p></div>
+    <div class="strat"><div class="ico">⚖</div><h4>Governance by design</h4><p>Policies, monitoring, and explainability are built in from day one — not bolted on after an incident. Compliance is cheaper as architecture than as retrofit.</p></div>
+    <div class="strat"><div class="ico">⎔</div><h4>Embed AI into operations strategy</h4><p>Treat agents as part of your broader automation and digital roadmap — not as an isolated experiment parked beside the business. Isolation is how pilots die quietly.</p></div>
+    <div class="strat"><div class="ico">▲</div><h4>Skill development</h4><p>New technology needs new skills. Equip engineering, operations, and business teams to work with agents — the organisations that learn fastest pull ahead permanently.</p></div>
+  </div>
+
+  <hr class="divider">
+  <h2>Agentic AI readiness checklist</h2>
+  <p>Use this internally to assess where you stand before committing budget or engineering time.</p>
+  <ul class="checklist">
+    <li><span class="check"></span><span><span class="item-ttl">Business function identified.</span><span class="item-d">At least one function that would clearly benefit from autonomous agents, with a named owner.</span></span></li>
+    <li><span class="check"></span><span><span class="item-ttl">Systems and APIs mapped.</span><span class="item-d">We understand which systems, APIs, and data sources an agent must interact with — and which lack interfaces today.</span></span></li>
+    <li><span class="check"></span><span><span class="item-ttl">Inference and governance capacity confirmed.</span><span class="item-d">Infrastructure (or a partner) can run model workloads with the required security and monitoring.</span></span></li>
+    <li><span class="check"></span><span><span class="item-ttl">Guardrails defined.</span><span class="item-d">Policies and approval gates exist for autonomous actions, and the data-routing decision (what leaves premises) is made.</span></span></li>
+    <li><span class="check"></span><span><span class="item-ttl">Stakeholder buy-in secured.</span><span class="item-d">Operations and business leadership support a bounded pilot with defined scope.</span></span></li>
+    <li><span class="check"></span><span><span class="item-ttl">Success metrics and scale plan set.</span><span class="item-d">Baseline measurements are captured before go-live, and the path from pilot to production use is written down.</span></span></li>
+  </ul>
+
+
+<!-- ================= CLOSING ================= -->
+<section class="page brk">
+  <div class="kicker">Closing</div>
+  <h1 class="ch">The future of automation is autonomous</h1>
+  <p class="lead">The organisations that benefit from agentic AI will not be the ones with the biggest models. They will be the ones that treat agents as <strong>engineered systems</strong>: orchestrated, governed, and priced like the critical infrastructure they are becoming.</p>
+
+  <p>That future is closer than the hype suggests — and more ordinary than the hype suggests, too. The models are already commodity. The tools are already standard. What separates production from pilot is the discipline around them: clear roles in the pipeline, verification before completion, guardrails that scale with trust, and cost curves that stay predictable.</p>
+
+  <p>Every pattern in this guide is running today. AZ Engineering operates multi-tenant assistant systems across business messaging channels, research and reporting pipelines that deliver on schedule, knowledge assistants grounded in client documents, and watchdogs that keep the whole estate healthy — all on an open stack with no proprietary lock-in.</p>
+
+  <div class="cta">
+    <h2>Start with one workflow</h2>
+    <p>Tell us which process consumes your team's hours — we will show you, on paper and in a bounded pilot, what an agent changes. You keep ownership of your data, your models, and your roadmap.</p>
+    <span class="mail">azengineeringapp@gmail.com</span>
+    <div class="note">Replies come from a human engineer — usually the one who would build your system.</div>
+  </div>
+
+  <hr class="divider">
+  <div style="display:flex;gap:28px;flex-wrap:wrap;align-items:center;">
+    <div class="mark" style="width:52px;height:52px;font-size:23px;">AZ</div>
+    <div>
+      <div style="font-weight:900;letter-spacing:.04em;color:var(--pine2);">AZ ENGINEERING</div>
+      <div class="small" style="margin-top:2px;">AI systems &amp; automation — designed, built, and operated with engineering discipline. Open source first. Privacy by architecture.</div>
+    </div>
+  </div>
+
+
+<!-- ================= GLOSSARY / SOURCES ================= -->
+<section class="page brk">
+  <div class="kicker">Appendix B</div>
+  <h1 class="ch">Glossary &amp; sources</h1>
+  <p class="ch-sub">Plain-language definitions for the terms used in this guide — written for the reader meeting them for the first time.</p>
+
+  <ul class="gloss">
+    <li><span class="term">Agent (AI agent)</span><span class="def">Software that pursues a goal over multiple steps: planning, calling tools, checking results — with limited autonomy under guardrails.</span></li>
+    <li><span class="term">Agentic AI</span><span class="def">Systems built around agents that act on objectives rather than only answering prompts.</span></li>
+    <li><span class="term">Large language model (LLM)</span><span class="def">A model trained on vast text that generates and reasons over language. The "brain" of an agent.</span></li>
+    <li><span class="term">Open-weights model</span><span class="def">A model whose weights are public, so you can run it on your own hardware — no vendor API required. Contrast: closed, API-only models.</span></li>
+    <li><span class="term">Inference</span><span class="def">The act of running a model to produce an answer. Inference happens locally (your hardware) or via a cloud API.</span></li>
+    <li><span class="term">Quantization</span><span class="def">Compressing a model's numbers so it uses less memory and runs faster on modest hardware, with small quality trade-off.</span></li>
+    <li><span class="term">Orchestration</span><span class="def">The workflow layer that sequences agent steps, tools, retries, and hand-offs between stages.</span></li>
+    <li><span class="term">RAG (retrieval-augmented generation)</span><span class="def">Giving the model relevant documents at answer time so replies are grounded in your data instead of general knowledge.</span></li>
+    <li><span class="term">Embedding / vector search</span><span class="def">Turning text into coordinates so similar meaning can be found fast — the engine behind "search by concept".</span></li>
+    <li><span class="term">Vector database</span><span class="def">A store optimised for similarity search over embeddings; the memory shelf of a knowledge assistant.</span></li>
+    <li><span class="term">MCP (Model Context Protocol)</span><span class="def">An open standard that lets any agent reach tools and data through one consistent interface — the "USB-C" of agent integration.</span></li>
+    <li><span class="term">Token / context window</span><span class="def">Tokens are the text units a model reads; the context window is how much fits at once. Cost and speed follow token count.</span></li>
+    <li><span class="term">PII (personally identifiable information)</span><span class="def">Data that identifies a person — names, contacts, records. In this guide's architecture, PII never leaves local inference.</span></li>
+    <li><span class="term">Guardrails / approval gate</span><span class="def">Rules and human checkpoints that bound what an agent may do on its own versus what waits for approval.</span></li>
+    <li><span class="term">Watchdog</span><span class="def">An automated monitor that checks health continuously and alerts (or safely fixes) when something drifts.</span></li>
+    <li><span class="term">Autoscaling</span><span class="def">Adding or removing compute automatically as workload rises and falls — pay for what you use.</span></li>
+  </ul>
+
+  <div class="footnote-block">
+    <h3 style="color:var(--green2);font-size:1.05em;margin-bottom:8px;">Sources &amp; notes</h3>
+    <ol>
+      <li>Gartner, "Gartner Predicts Agentic AI Will Autonomously Resolve 80% of Common Customer Service Issues Without Human Intervention by 2029," 5 March 2025. (As cited in industry literature; figures are analyst projections, not guarantees.)</li>
+      <li>Expansion of AI-enabled workflows from 3% (2024) toward 25% (2026) — industry analyst projection widely cited in 2025 enterprise AI research; see IDC and Gartner outlook publications.</li>
+      <li>Descriptions of AZ Engineering systems reflect its own production stack as of 2026. Component categories are named generically; specific open-source products are selected per deployment and remain replaceable by design. No client identities, credentials, or internal configurations are included in this guide.</li>
+    </ol>
+  </div>
+
+  <div style="margin-top:26px;padding-top:18px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;">
+    <div class="small">© 2026 AZ Engineering. Licensed for internal business use; no part may be resold or republished as another firm's material.</div>
+    <div style="font-weight:900;color:var(--green);letter-spacing:.06em;">AZ ENGINEERING</div>
+  </div>
+
+
+
+<section class="page brk">
+<p style="display:inline-block;border:1px solid #0E7A46;color:#0E7A46;border-radius:999px;padding:3px 14px;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;background:#F4FAF6;margin:2px 0 14px;">About the author · Consulting</p>
+<h1 class="ch" style="font-size:2em;margin:0 0 10px;">This guide ends here.<br>Your roadmap doesn't have to.</h1>
+<p style="margin:0 0 8px;font-size:12.5px;line-height:1.62;color:#17392F;">Aamir Zameer builds agent-powered delivery systems for service businesses — self-running intake, research, monitoring, reporting and follow-up — engineered to stay <b>private, open and affordable</b>. He runs AZ Engineering, writes field guides like this one, and consults with teams that would rather build than buy.</p>
+<div class="lp3">
+<div><b>Free 15-minute consult</b><p>DM “FIELD GUIDE” on LinkedIn — tell me where your operations stand today and leave with a concrete starting point.</p></div>
+<div><b>Readiness audit</b><p>A scored review of your current workflows: gaps, risks, and a practical 30-day action plan.</p></div>
+<div><b>Architecture review</b><p>Already building? Get an independent pass that catches structural mistakes before they cost you a quarter.</p></div>
+</div>
+<div class="lp-links">
+<h4>Find me here</h4>
+<div class="lp-row"><span>LinkedIn — consultations &amp; DMs</span><a href="https://www.linkedin.com/in/aamirzameer">linkedin.com/in/aamirzameer</a></div>
+<div class="lp-row"><span>Topmate — 1:1 calls · products · dev resources</span><a href="https://topmate.io/aamir_zameer">topmate.io/aamir_zameer</a></div>
+<div class="lp-row"><span>X — engineering notes &amp; field reports</span><a href="https://x.com/AmzBuraq">x.com/AmzBuraq</a></div>
+<div class="lp-row"><span>Email — project enquiries</span><a href="mailto:azengineeringapp@gmail.com">azengineeringapp@gmail.com</a></div>
+</div>
+<p class="lp-note"><b>Why free?</b> The 2026 edition is free while it is in preview. A licensed corporate edition is already in preparation — teams that act now keep the free edition, forever.</p>
+<p class="lp-sig">— Aamir Zameer · Founder, AZ Engineering</p>
+</section>
+</div><!-- /sheet -->
+</body>
+</html>

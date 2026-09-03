@@ -1,0 +1,31 @@
+<figure class="diag">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 240" role="img" aria-label="Hybrid routing diagram">
+<defs>
+<marker id="arrC" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" fill="#0E7A46"/></marker>
+</defs>
+<g font-family="Lato,Arial,sans-serif">
+<rect x="18" y="20" width="165" height="52" rx="10" fill="#FFFFFF" stroke="#0E7A46" stroke-width="1.5"/>
+<text x="100" y="42" text-anchor="middle" font-size="16.5" font-weight="700" fill="#17392F">Every request</text>
+<text x="100" y="60" text-anchor="middle" font-size="12.5" fill="#5A6F63">from your users</text>
+<rect x="420" y="20" width="230" height="52" rx="26" fill="#0B3B2E"/>
+<text x="535" y="41" text-anchor="middle" font-size="18" font-weight="700" fill="#FFFFFF">Classifier</text>
+<text x="535" y="59" text-anchor="middle" font-size="12.5" fill="#CDE5D8">sensitivity · difficulty</text>
+<line x1="183" y1="46" x2="416" y2="46" stroke="#0E7A46" stroke-width="2" marker-end="url(#arrC)"/>
+<rect x="18" y="118" width="280" height="58" rx="10" fill="#0B3B2E"/>
+<text x="158" y="143" text-anchor="middle" font-size="17" font-weight="700" fill="#FFFFFF">Local engine</text>
+<text x="158" y="163" text-anchor="middle" font-size="13" fill="#CDE5D8">private · sensitive · PII</text>
+<rect x="330" y="118" width="280" height="58" rx="10" fill="#0E7A46"/>
+<text x="470" y="143" text-anchor="middle" font-size="16.5" font-weight="700" fill="#FFFFFF">Open model — routine</text>
+<text x="470" y="163" text-anchor="middle" font-size="13" fill="#E2F3E9">fast · lowest cost</text>
+<rect x="642" y="118" width="280" height="58" rx="10" fill="#FFFFFF" stroke="#0E7A46" stroke-width="1.5"/>
+<text x="782" y="143" text-anchor="middle" font-size="16.5" font-weight="700" fill="#17392F">Frontier — hardest</text>
+<text x="782" y="163" text-anchor="middle" font-size="13" fill="#5A6F63">deep reasoning · last resort</text>
+<line x1="535" y1="72" x2="158" y2="114" stroke="#0E7A46" stroke-width="1.8" marker-end="url(#arrC)"/>
+<line x1="535" y1="72" x2="470" y2="114" stroke="#0E7A46" stroke-width="1.8" marker-end="url(#arrC)"/>
+<line x1="535" y1="72" x2="782" y2="114" stroke="#0E7A46" stroke-width="1.8" marker-end="url(#arrC)"/>
+<rect x="18" y="196" width="904" height="30" rx="15" fill="#FFFFFF" stroke="#0E7A46" stroke-width="1"/>
+<text x="470" y="215" text-anchor="middle" font-size="14.5" fill="#17392F">Policy: sensitive data never leaves your perimeter · every action logged · spend capped per request</text>
+</g>
+</svg>
+<figcaption><b>Figure 3</b> — Hybrid routing: classify each request by sensitivity and difficulty, then send it to the cheapest tier that can handle it safely.</figcaption>
+</figure>

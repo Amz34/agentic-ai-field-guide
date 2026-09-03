@@ -1,0 +1,9 @@
+# Local Cloudflare state — never commit
+.wrangler/
+
+# Superseded teaser (kept on disk for reference)
+AZ-Engineering-Field-Guide-TEASER.pdf
+
+# OS / editor noise
+.DS_Store
+*.swp
