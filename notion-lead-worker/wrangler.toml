@@ -1,0 +1,8 @@
+name = "az-notion-lead"
+main = "src/worker.js"
+compatibility_date = "2025-01-01"
+
+[vars]
+NOTION_DB_ID = "0e797caf-59b5-48fa-8a1f-fb702e14db54"
+
+# NOTION_TOKEN is set via: npx wrangler secret put NOTION_TOKEN

@@ -1,0 +1,19 @@
+Everyone wants to build AI agents. Almost nobody has a blueprint.
+
+I turned months of messy agent experiments into a repeatable engineering process — and distilled it into a 26-page technical field guide:
+
+• When a single LLM call is enough — and when you need a real agent
+• Tools, memory & context: the architecture behind reliable agents
+• Guardrails, evals & human-in-the-loop done right
+• The production pitfalls that quietly break 80% of agent projects
+
+No hype. No vendor pitches. Just what works when it has to work.
+
+The free preview is attached — the full guide is one click away:
+https://az-ebook.pages.dev
+
+Save it for your next build. Share it with a teammate who needs it.
+
+Aamir Zameer — AZ Engineering
+
+#AgenticAI #AI #Engineering #LLM #SoftwareArchitecture #BuildInPublic

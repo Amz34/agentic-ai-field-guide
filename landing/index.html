@@ -165,6 +165,14 @@
   var form=document.getElementById('gateForm'), email=document.getElementById('email');
   var ok=document.getElementById('okMsg'), err=document.getElementById('errMsg'), dl=document.getElementById('dl');
   var btn=document.getElementById('btn');
+  var NOTION_ENDPOINT='https://az-notion-lead.sanad-io.workers.dev/lead';
+  function notifyNotion(mail){
+    if(!NOTION_ENDPOINT){ return; }
+    try{
+      fetch(NOTION_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({email:mail,source:'az-ebook.pages.dev',page:'Guide Download'}),keepalive:true});
+    }catch(_){}
+  }
   form.addEventListener('submit',function(e){
     e.preventDefault();
     if(!email.value || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email.value)){ email.focus(); return; }
@@ -184,6 +192,7 @@
     }).then(function(r){return r.json();}).then(function(d){
       if(d.success==='true'||d.success===true){
         ok.style.display='block'; dl.className='dl show';
+        notifyNotion(email.value); // silent lead capture -> Notion master
         email.value='';
       } else { throw new Error('formsubmit'); }
     }).catch(function(){
