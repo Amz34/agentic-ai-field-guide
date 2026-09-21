@@ -41,3 +41,7 @@ google-chrome --headless=new --no-sandbox --no-pdf-header-footer \
 as-is. Source, diagrams and copy may **not** be reused commercially or republished
 without written permission — a licensed corporate edition is available from the author.
 Contact: azengineeringapp@gmail.com
+
+---
+
+Part of [my always-on agent stack](https://github.com/Amz34) · [Awesome Agent Infrastructure](https://github.com/Amz34/awesome-agent-infrastructure) (135 live-checked building blocks).
